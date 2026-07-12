@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMNI Agent X — Autonomous Intelligence Platform</title>
+<script src="https://cdn.tailwindcss.com">
+</script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-blue: #00d4ff;
+    --neon-purple: #a855f7;
+    --neon-green: #00ff88;
+    --neon-orange: #ff6b35;
+    --dark-bg: #030712;
+    --card-bg: rgba(255, 255, 255, 0.03);
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark-bg);
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a1a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--neon-blue);
+    border-radius: 3px;
+  }
+  .bg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: float 20s infinite ease-in-out;
+  }
+  .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--neon-blue);
+    top: -100px;
+    left: -200px;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--neon-purple);
+    top: 300px;
+    right: -150px;
+    animation-delay: -7s;
+  }
+  .orb-3 {
+    width: 350px;
+    height: 350px;
+    background: var(--neon-green);
+    bottom: 100px;
+    left: 30%;
+    animation-delay: -14s;
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(30px, -40px) scale(1.05);
+    }
+    50% {
+      transform: translate(-20px, 30px) scale(0.95);
+    }
+    75% {
+      transform: translate(40px, 20px) scale(1.02);
+    }
+  }
+  .logo-network {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+  .logo-node {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--neon-blue), 0 0 40px rgba(0, 212, 255, 0.3);
+    animation: nodePulse 2s infinite ease-in-out;
+  }
+  .logo-node:nth-child(1) {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 0s;
+  }
+  .logo-node:nth-child(2) {
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-delay: 0.3s;
+  }
+  .logo-node:nth-child(3) {
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    animation-delay: 0.6s;
+  }
+  .logo-node:nth-child(4) {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    animation-delay: 0.9s;
+  }
+  .logo-node:nth-child(5) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background: var(--neon-purple);
+    box-shadow: 0 0 30px var(--neon-purple), 0 0 60px rgba(168, 85, 247, 0.4);
+    animation-delay: 0s;
+  }
+  .logo-node:nth-child(6) {
+    top: 30%;
+    left: 20%;
+    animation-delay: 1.2s;
+    background: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+  }
+  .logo-node:nth-child(7) {
+    top: 30%;
+    right: 20%;
+    animation-delay: 1.5s;
+    background: var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green);
+  }
+  .logo-node:nth-child(8) {
+    bottom: 30%;
+    left: 20%;
+    animation-delay: 1.8s;
+    background: var(--neon-orange);
+    box-shadow: 0 0 20px var(--neon-orange);
+  }
+  .logo-node:nth-child(9) {
+    bottom: 30%;
+    right: 20%;
+    animation-delay: 2.1s;
+    background: var(--neon-orange);
+    box-shadow: 0 0 20px var(--neon-orange);
+  }
+  @keyframes nodePulse {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform-origin: center;
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 30px currentColor;
+    }
+  }
+  .logo-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .logo-lines line {
+    stroke: rgba(0, 212, 255, 0.2);
+    stroke-width: 1;
+    animation: lineGlow 3s infinite ease-in-out;
+  }
+  .logo-lines line:nth-child(even) {
+    animation-delay: 1.5s;
+  }
+  @keyframes lineGlow {
+    0%,
+    100% {
+      stroke-opacity: 0.15;
+    }
+    50% {
+      stroke-opacity: 0.5;
+    }
+  }
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 212, 255, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 212, 255, 0.05);
+  }
+  .btn-neon {
+    position: relative;
+    padding: 14px 36px;
+    border: 1px solid var(--neon-blue);
+    background: transparent;
+    color: var(--neon-blue);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .btn-neon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.15), transparent);
+    transition: left 0.5s;
+  }
+  .btn-neon:hover::before {
+    left: 100%;
+  }
+  .btn-neon:hover {
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2), inset 0 0 30px rgba(0, 212, 255, 0.05);
+    transform: translateY(-2px);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    border: none;
+    color: #fff;
+    padding: 14px 36px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .btn-primary:hover::before {
+    opacity: 1;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
+  }
+  .btn-primary span {
+    position: relative;
+    z-index: 1;
+  }
+  .folder-tree {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #94a3b8;
+  }
+  .folder-tree .folder {
+    color: var(--neon-blue);
+  }
+  .folder-tree .subfolder {
+    color: var(--neon-purple);
+  }
+  .folder-tree .pipe {
+    color: #334155;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .typewriter {
+    overflow: hidden;
+    border-right: 2px solid var(--neon-blue);
+    white-space: nowrap;
+    animation: typing 3.5s steps(40) 1s forwards, blink 0.7s step-end infinite;
+    width: 0;
+    max-width: fit-content;
+  }
+  @keyframes typing {
+    from {
+      width: 0
+    }
+    to {
+      width: 100%
+    }
+  }
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+  }
+  .skill-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .skill-fill {
+    height: 100%;
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: all 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(3, 7, 18, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .terminal {
+    background: #0a0e1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .terminal-header {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .terminal-body {
+    padding: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+  .terminal-body .prompt {
+    color: var(--neon-green);
+  }
+  .terminal-body .command {
+    color: #e2e8f0;
+  }
+  .terminal-body .output {
+    color: #64748b;
+  }
+  .terminal-body .highlight {
+    color: var(--neon-blue);
+  }
+  #particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .agent-card {
+    position: relative;
+  }
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
+    border-radius: 17px;
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: -1;
+  }
+  .agent-card:hover::before {
+    opacity: 0.3;
+  }
+  .stat-number {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(3, 7, 18, 0.97);
+    backdrop-filter: blur(20px);
+    z-index: 200;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .mobile-menu.open {
+    display: flex;
+  }
+  .evolve-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+    transition: all 0.3s;
+  }
+  .evolve-pill:hover {
+    transform: scale(1.05);
+  }
+  @media (max-width: 768px) {
+    .stat-number {
+      font-size: 2rem;
+    }
+    .hero-title {
+      font-size: 2.5rem !important;
+    }
+    .nav-links {
+      display: none !important;
+    }
+    .hamburger {
+      display: flex !important;
+    }
+  }
+  @media (max-width: 480px) {
+    .hero-title {
+      font-size: 1.8rem !important;
+    }
+  }
+  .hamburger {
+    display: none !important;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 300;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #e2e8f0;
+    transition: all 0.3s;
+  }
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex !important;
+    }
+  }
+  .shimmer-text {
+    background: linear-gradient(90deg, #e2e8f0 0%, var(--neon-blue) 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  .hex-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(168, 85, 247, 0.15));
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .domain-badge {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--neon-blue);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+  .domain-badge:hover {
+    background: rgba(0, 212, 255, 0.08);
+    border-color: rgba(0, 212, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.1);
+  }
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), var(--neon-purple), transparent);
+  }
+</style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <canvas id="particles"></canvas>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 relative z-10">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-sm" style="font-family:'Space Grotesk',sans-serif;">◉</div>
+        <span class="text-xl font-bold tracking-tight" style="font-family:'Space Grotesk',sans-serif;">OMNI<span class="text-cyan-400">AGENT</span></span>
+      </a>
+      <div class="nav-links flex items-center gap-8 text-sm font-medium text-gray-400">
+        <a href="#features" class="hover:text-cyan-400 transition-colors">Features</a>
+        <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
+        <a href="#architecture" class="hover:text-cyan-400 transition-colors">Architecture</a>
+        <a href="#agents" class="hover:text-cyan-400 transition-colors">Agents</a>
+        <a href="#evolution" class="hover:text-cyan-400 transition-colors">Evolution</a>
+        <button class="btn-neon text-xs px-5 py-2.5" onclick="scrollToSection('cta')">Get Started</button>
+      </div>
+      <div class="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="absolute top-6 right-6 text-3xl text-gray-400" onclick="toggleMobileMenu()">✕</button>
+    <a href="#features" class="text-2xl font-semibold hover:text-cyan-400 transition" onclick="toggleMobileMenu()">Features</a>
+    <a href="#skills" class="text-2xl font-semibold hover:text-cyan-400 transition" onclick="toggleMobileMenu()">Skills</a>
+    <a href="#architecture" class="text-2xl font-semibold hover:text-cyan-400 transition" onclick="toggleMobileMenu()">Architecture</a>
+    <a href="#agents" class="text-2xl font-semibold hover:text-cyan-400 transition" onclick="toggleMobileMenu()">Agents</a>
+    <a href="#evolution" class="text-2xl font-semibold hover:text-cyan-400 transition" onclick="toggleMobileMenu()">Evolution</a>
+    <button class="btn-primary mt-4" onclick="toggleMobileMenu()"><span>Get Started</span></button>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="relative min-h-screen flex items-center justify-center pt-20 px-6" style="z-index:1;">
+    <div class="max-w-6xl mx-auto text-center">
+      <!-- Version badge -->
+      <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-xs font-medium mb-8 tracking-wider" style="font-family:'JetBrains Mono',monospace;">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        OMNI AGENT X — v1.0 AUTONOMOUS AI OS
+      </div>
+
+      <!-- Logo Network -->
+      <div class="reveal flex justify-center mb-10" style="transition-delay:0.1s;">
+        <div class="logo-network">
+          <svg class="logo-lines" viewBox="0 0 200 200">
+            <line x1="100" y1="17" x2="100" y2="88"/>
+            <line x1="100" y1="112" x2="100" y2="183"/>
+            <line x1="17" y1="100" x2="88" y2="100"/>
+            <line x1="112" y1="100" x2="183" y2="100"/>
+            <line x1="46" y1="60" x2="88" y2="88"/>
+            <line x1="154" y1="60" x2="112" y2="88"/>
+            <line x1="46" y1="140" x2="88" y2="112"/>
+            <line x1="154" y1="140" x2="112" y2="112"/>
+            <line x1="100" y1="17" x2="46" y2="60"/>
+            <line x1="100" y1="17" x2="154" y2="60"/>
+            <line x1="100" y1="183" x2="46" y2="140"/>
+            <line x1="100" y1="183" x2="154" y2="140"/>
+            <line x1="17" y1="100" x2="46" y2="60"/>
+            <line x1="17" y1="100" x2="46" y2="140"/>
+            <line x1="183" y1="100" x2="154" y2="60"/>
+            <line x1="183" y1="100" x2="154" y2="140"/>
+          </svg>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+          <div class="logo-node"></div>
+        </div>
+      </div>
+
+      <!-- Title -->
+      <h1 class="reveal hero-title text-5xl md:text-7xl lg:text-8xl font-black tracking-tight leading-none mb-6" style="font-family:'Space Grotesk',sans-serif; transition-delay:0.2s;">
+        <span class="shimmer-text">OMNI AGENT</span>
+      </h1>
+      <p class="reveal text-lg md:text-xl text-gray-400 font-medium mb-2" style="font-family:'Space Grotesk',sans-serif; transition-delay:0.3s;">
+        Autonomous Intelligence Platform
+      </p>
+      <p class="reveal text-sm md:text-base text-gray-500 mb-10" style="font-family:'JetBrains Mono',monospace; transition-delay:0.4s;">
+        Research &bull; Create &bull; Automate &bull; Deploy &bull; Scale
+      </p>
+
+      <!-- Tagline -->
+      <div class="reveal mb-12" style="transition-delay:0.45s;">
+        <p class="text-2xl md:text-3xl font-light text-gray-300" style="font-family:'Space Grotesk',sans-serif;">
+          One Agent. <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 font-bold">Unlimited Execution.</span>
+        </p>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 mb-16" style="transition-delay:0.5s;">
+        <button class="btn-primary text-base px-10 py-4 rounded-xl" onclick="launchWorkspace()">
+          <span class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21"/></svg>
+            Launch Workspace
+          </span>
+        </button>
+        <button class="btn-neon text-base px-10 py-4" onclick="createAgent()">
+          <span class="flex items-center gap-2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Create Agent
+          </span>
+        </button>
+      </div>
+
+      <!-- Animated descriptor -->
+      <div class="reveal text-center" style="transition-delay:0.6s;">
+        <p class="text-xs text-gray-600 tracking-widest uppercase mb-3" style="font-family:'JetBrains Mono',monospace;">The Autonomous AI Workforce for</p>
+        <p class="text-lg text-gray-400 h-8" style="font-family:'Space Grotesk',sans-serif;">
+          <span id="rotating-text" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 font-semibold"></span>
+          <span class="animate-pulse text-cyan-400">|</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600">
+      <span class="text-xs tracking-widest uppercase" style="font-family:'JetBrains Mono',monospace;">Scroll</span>
+      <div class="w-5 h-8 rounded-full border border-gray-700 flex justify-center pt-1">
+        <div class="w-1 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS MARQUEE -->
+  <section class="relative py-8 border-y border-white/5" style="z-index:1;">
+    <div class="marquee-container">
+      <div class="marquee-content">
+        <span class="inline-flex items-center gap-12 px-6 text-sm text-gray-500" style="font-family:'JetBrains Mono',monospace;">
+          <span>◉ RESEARCH</span>
+          <span>◉ PLAN</span>
+          <span>◉ CODE</span>
+          <span>◉ DESIGN</span>
+          <span>◉ CREATE CONTENT</span>
+          <span>◉ ANALYZE DATA</span>
+          <span>◉ AUTOMATE WORKFLOWS</span>
+          <span>◉ DEPLOY APPLICATIONS</span>
+          <span>◉ MANAGE CLOUD</span>
+          <span>◉ LEARN FROM RESULTS</span>
+          <span>◉ RESEARCH</span>
+          <span>◉ PLAN</span>
+          <span>◉ CODE</span>
+          <span>◉ DESIGN</span>
+          <span>◉ CREATE CONTENT</span>
+          <span>◉ ANALYZE DATA</span>
+          <span>◉ AUTOMATE WORKFLOWS</span>
+          <span>◉ DEPLOY APPLICATIONS</span>
+          <span>◉ MANAGE CLOUD</span>
+          <span>◉ LEARN FROM RESULTS</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CORE MISSION / FEATURES -->
+  <section id="features" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="reveal text-xs tracking-[0.3em] uppercase text-cyan-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Core Mission</p>
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4" style="font-family:'Space Grotesk',sans-serif;">
+          An Autonomous AI <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Workforce</span>
+        </h2>
+        <p class="reveal text-gray-500 max-w-2xl mx-auto">OMNI Agent replaces entire teams with intelligent agents that research, plan, code, design, create, analyze, automate, deploy, and learn — all autonomously.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- Mission Cards -->
+        <div class="reveal glass-card p-6 lg:col-span-2 lg:row-span-2">
+          <div class="hex-icon mb-4">🧠</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Research & Plan</h3>
+          <p class="text-sm text-gray-500 mb-4">Web intelligence, market analysis, competitor tracking — OMNI gathers data and creates strategic plans autonomously.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs">Web Intel</span>
+            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs">Market Analysis</span>
+            <span class="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 text-xs">Strategy</span>
+          </div>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.1s;">
+          <div class="hex-icon mb-4">💻</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Code</h3>
+          <p class="text-sm text-gray-500">Full-stack development in HTML, CSS, JS, Python, Node.js, Firebase.</p>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.15s;">
+          <div class="hex-icon mb-4">🎨</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Design</h3>
+          <p class="text-sm text-gray-500">UI/UX, branding, visual assets — all generated intelligently.</p>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.2s;">
+          <div class="hex-icon mb-4">📝</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Content</h3>
+          <p class="text-sm text-gray-500">Blogs, social media, SEO content, video scripts.</p>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.1s;">
+          <div class="hex-icon mb-4">📊</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Analyze</h3>
+          <p class="text-sm text-gray-500">KPI monitoring, predictive analysis, growth tracking.</p>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.15s;">
+          <div class="hex-icon mb-4">⚡</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Automate</h3>
+          <p class="text-sm text-gray-500">Workflow, API, email, and CRM automation.</p>
+        </div>
+        <div class="reveal glass-card p-6 lg:col-span-2" style="transition-delay:0.2s;">
+          <div class="hex-icon mb-4">☁️</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Deploy & Scale</h3>
+          <p class="text-sm text-gray-500">Firebase, Google Cloud, Cloud Run, Cloud Functions — deploy applications and manage infrastructure at scale.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs">Firebase</span>
+            <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs">Cloud Run</span>
+            <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-400 text-xs">Cloud Functions</span>
+          </div>
+        </div>
+        <div class="reveal glass-card p-6" style="transition-delay:0.25s;">
+          <div class="hex-icon mb-4">🔄</div>
+          <h3 class="text-lg font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Learn</h3>
+          <p class="text-sm text-gray-500">Learns from results, adapts strategies, and evolves continuously.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENT SKILLS -->
+  <section id="skills" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="reveal text-xs tracking-[0.3em] uppercase text-purple-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Agent Skills</p>
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4" style="font-family:'Space Grotesk',sans-serif;">
+          Full-Spectrum <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Capabilities</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <!-- Research -->
+        <div class="reveal agent-card glass-card p-6">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center text-lg">🔍</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Research</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>Web Intelligence</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>Market Analysis</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>Competitor Analysis</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-blue-400 to-blue-600" data-width="95%"></div></div>
+        </div>
+
+        <!-- Content -->
+        <div class="reveal agent-card glass-card p-6" style="transition-delay:0.05s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center text-lg">✏️</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Content</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Blog Generation</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Social Media</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>SEO Content</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>Video Scripts</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-green-400 to-green-600" data-width="92%"></div></div>
+        </div>
+
+        <!-- Development -->
+        <div class="reveal agent-card glass-card p-6" style="transition-delay:0.1s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-600/20 flex items-center justify-center text-lg">⚙️</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Development</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>HTML / CSS / JS</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Node.js</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Python</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Firebase</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-cyan-400 to-cyan-600" data-width="97%"></div></div>
+        </div>
+
+        <!-- AI -->
+        <div class="reveal agent-card glass-card p-6" style="transition-delay:0.15s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center text-lg">🤖</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">AI</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>Prompt Engineering</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>Multi-Agent Coord</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>Memory Management</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>RAG Systems</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-purple-400 to-purple-600" data-width="98%"></div></div>
+        </div>
+
+        <!-- Automation -->
+        <div class="reveal agent-card glass-card p-6" style="transition-delay:0.2s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center text-lg">🔄</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Automation</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>Workflow Automation</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>API Integration</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>Email Automation</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-orange-400"></span>CRM Automation</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-orange-400 to-orange-600" data-width="90%"></div></div>
+        </div>
+
+        <!-- Cloud -->
+        <div class="reveal agent-card glass-card p-6" style="transition-delay:0.25s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-sky-500/20 to-sky-600/20 flex items-center justify-center text-lg">☁️</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Cloud</h3>
+          </div>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Firebase</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Google Cloud</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Cloud Run</li>
+            <li class="flex items-center gap-2 text-sm text-gray-400"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Cloud Functions</li>
+          </ul>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-sky-400 to-sky-600" data-width="93%"></div></div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="reveal agent-card glass-card p-6 lg:col-span-2" style="transition-delay:0.3s;">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500/20 to-pink-600/20 flex items-center justify-center text-lg">📈</div>
+            <h3 class="font-bold text-base" style="font-family:'Space Grotesk',sans-serif;">Analytics</h3>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="text-center p-3 rounded-lg bg-white/[0.02]">
+              <div class="text-2xl font-bold text-pink-400" style="font-family:'Space Grotesk',sans-serif;">KPI</div>
+              <div class="text-xs text-gray-500 mt-1">Monitoring</div>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/[0.02]">
+              <div class="text-2xl font-bold text-pink-400" style="font-family:'Space Grotesk',sans-serif;">AI</div>
+              <div class="text-xs text-gray-500 mt-1">Predictive</div>
+            </div>
+            <div class="text-center p-3 rounded-lg bg-white/[0.02]">
+              <div class="text-2xl font-bold text-pink-400" style="font-family:'Space Grotesk',sans-serif;">↗</div>
+              <div class="text-xs text-gray-500 mt-1">Growth</div>
+            </div>
+          </div>
+          <div class="skill-bar mt-5"><div class="skill-fill bg-gradient-to-r from-pink-400 to-pink-600" data-width="88%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE / FOLDER STRUCTURE -->
+  <section id="architecture" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <!-- Folder Structure Terminal -->
+        <div class="reveal">
+          <p class="text-xs tracking-[0.3em] uppercase text-green-400 mb-4" style="font-family:'JetBrains Mono',monospace;">System Architecture</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-8" style="font-family:'Space Grotesk',sans-serif;">
+            Neural <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">Architecture</span>
+          </h2>
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-dot" style="background:#ff5f57;"></div>
+              <div class="terminal-dot" style="background:#febc2e;"></div>
+              <div class="terminal-dot" style="background:#28c840;"></div>
+              <span class="text-xs text-gray-500 ml-3" style="font-family:'JetBrains Mono',monospace;">omni-agent — architecture</span>
+            </div>
+            <div class="terminal-body folder-tree">
+              <div><span class="prompt">$ </span><span class="command">tree OMNI-AGENT/</span></div>
+              <div class="mt-2">
+                <span class="folder">OMNI-AGENT/</span><br>
+                <span class="pipe">├── </span><span class="folder">brain/</span> <span class="output">.............. core AI engine</span><br>
+                <span class="pipe">├── </span><span class="folder">memory/</span> <span class="output">............ persistent context</span><br>
+                <span class="pipe">├── </span><span class="folder">agents/</span><br>
+                <span class="pipe">│   ├── </span><span class="subfolder">planner/</span> <span class="output">....... strategic planning</span><br>
+                <span class="pipe">│   ├── </span><span class="subfolder">coder/</span> <span class="output">......... full-stack dev</span><br>
+                <span class="pipe">│   ├── </span><span class="subfolder">designer/</span> <span class="output">...... UI/UX generation</span><br>
+                <span class="pipe">│   ├── </span><span class="subfolder">marketer/</span> <span class="output">...... growth engine</span><br>
+                <span class="pipe">│   ├── </span><span class="subfolder">analyst/</span> <span class="output">....... data insights</span><br>
+                <span class="pipe">│   └── </span><span class="subfolder">automation/</span> <span class="output">.... workflow engine</span><br>
+                <span class="pipe">│</span><br>
+                <span class="pipe">├── </span><span class="folder">workflows/</span> <span class="output">......... task pipelines</span><br>
+                <span class="pipe">├── </span><span class="folder">dashboards/</span> <span class="output">........ monitoring UI</span><br>
+                <span class="pipe">├── </span><span class="folder">api/</span> <span class="output">............... endpoints</span><br>
+                <span class="pipe">├── </span><span class="folder">firebase/</span> <span class="output">.......... cloud services</span><br>
+                <span class="pipe">├── </span><span class="folder">cloud/</span> <span class="output">............. infrastructure</span><br>
+                <span class="pipe">├── </span><span class="folder">logs/</span> <span class="output">.............. audit trail</span><br>
+                <span class="pipe">├── </span><span class="folder">backups/</span> <span class="output">........... data safety</span><br>
+                <span class="pipe">└── </span><span class="folder">security/</span> <span class="output">.......... encryption</span>
+              </div>
+              <div class="mt-3">
+                <span class="highlight">14 directories, ∞ possibilities</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Terminal -->
+        <div class="reveal" style="transition-delay:0.2s;">
+          <p class="text-xs tracking-[0.3em] uppercase text-cyan-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Live Console</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-8" style="font-family:'Space Grotesk',sans-serif;">
+            Agent <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Terminal</span>
+          </h2>
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-dot" style="background:#ff5f57;"></div>
+              <div class="terminal-dot" style="background:#febc2e;"></div>
+              <div class="terminal-dot" style="background:#28c840;"></div>
+              <span class="text-xs text-gray-500 ml-3" style="font-family:'JetBrains Mono',monospace;">omni-agent — console</span>
+            </div>
+            <div class="terminal-body" id="liveTerminal">
+              <div><span class="prompt">omni@agent:~$ </span><span class="command">init --mode autonomous</span></div>
+              <div class="output">✓ Brain engine initialized</div>
+              <div class="output">✓ Memory system loaded (RAG enabled)</div>
+              <div class="output">✓ 6 agents deployed</div>
+              <div class="output">✓ Cloud infrastructure connected</div>
+              <div class="mt-2"><span class="prompt">omni@agent:~$ </span><span class="command">agent.create --type full-stack</span></div>
+              <div class="output">⚡ Spawning full-stack agent...</div>
+              <div class="output">  → Prompt engineering: <span class="highlight">active</span></div>
+              <div class="output">  → Multi-agent coordination: <span class="highlight">active</span></div>
+              <div class="output">  → Memory management: <span class="highlight">active</span></div>
+              <div class="output">✓ Agent ready. Awaiting instructions.</div>
+              <div class="mt-2"><span class="prompt">omni@agent:~$ </span><span class="command" id="typingCommand"></span><span class="animate-pulse text-green-400">█</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENTS GRID -->
+  <section id="agents" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="reveal text-xs tracking-[0.3em] uppercase text-orange-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Agent Network</p>
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4" style="font-family:'Space Grotesk',sans-serif;">
+          Meet Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500">Agents</span>
+        </h2>
+        <p class="reveal text-gray-500 max-w-xl mx-auto">Six specialized agents working in perfect coordination. Each one masters its domain — together they're unstoppable.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="reveal glass-card p-8 group cursor-pointer">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎯</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20" style="font-family:'JetBrains Mono',monospace;">PLANNER</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Planner Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Creates strategic roadmaps, breaks complex goals into executable tasks, and coordinates agent workflows.</p>
+          <div class="flex items-center gap-2 text-xs text-blue-400">
+            <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            Online — Processing 47 tasks
+          </div>
+        </div>
+
+        <div class="reveal glass-card p-8 group cursor-pointer" style="transition-delay:0.05s;">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💻</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" style="font-family:'JetBrains Mono',monospace;">CODER</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Coder Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Full-stack development across multiple languages. Writes, tests, and deploys production-ready code.</p>
+          <div class="flex items-center gap-2 text-xs text-cyan-400">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            Online — 12,847 lines written today
+          </div>
+        </div>
+
+        <div class="reveal glass-card p-8 group cursor-pointer" style="transition-delay:0.1s;">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🎨</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20" style="font-family:'JetBrains Mono',monospace;">DESIGNER</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Designer Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Creates stunning UI/UX, branding, visual assets, and design systems with pixel-perfect precision.</p>
+          <div class="flex items-center gap-2 text-xs text-purple-400">
+            <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+            Online — Rendering 8 designs
+          </div>
+        </div>
+
+        <div class="reveal glass-card p-8 group cursor-pointer" style="transition-delay:0.15s;">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📢</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" style="font-family:'JetBrains Mono',monospace;">MARKETER</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Marketer Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Generates content, manages social media, SEO optimization, and drives growth strategies.</p>
+          <div class="flex items-center gap-2 text-xs text-green-400">
+            <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+            Online — 23 campaigns active
+          </div>
+        </div>
+
+        <div class="reveal glass-card p-8 group cursor-pointer" style="transition-delay:0.2s;">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-amber-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">📊</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20" style="font-family:'JetBrains Mono',monospace;">ANALYST</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Analyst Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Deep data analysis, KPI monitoring, predictive modeling, and actionable intelligence reports.</p>
+          <div class="flex items-center gap-2 text-xs text-yellow-400">
+            <span class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span>
+            Online — Analyzing 1.2M data points
+          </div>
+        </div>
+
+        <div class="reveal glass-card p-8 group cursor-pointer" style="transition-delay:0.25s;">
+          <div class="flex items-center justify-between mb-6">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500/20 to-orange-600/20 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">⚡</div>
+            <span class="text-xs px-3 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/20" style="font-family:'JetBrains Mono',monospace;">AUTOMATION</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">Automation Agent</h3>
+          <p class="text-sm text-gray-500 mb-4">Builds and manages automated workflows, API integrations, email sequences, and CRM pipelines.</p>
+          <div class="flex items-center gap-2 text-xs text-red-400">
+            <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+            Online — 156 workflows running
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVOLUTION / MEMORY SECTION -->
+  <section id="evolution" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="reveal text-xs tracking-[0.3em] uppercase text-green-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Adaptive Intelligence</p>
+        <h2 class="reveal text-3xl md:text-5xl font-bold mb-4" style="font-family:'Space Grotesk',sans-serif;">
+          Skills Evolve. <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">Memory Persists.</span>
+        </h2>
+        <p class="reveal text-gray-500 max-w-2xl mx-auto">OMNI Agent doesn't just execute — it learns. Every task improves its capabilities. Skills evolve based on results. Memory spans across sessions.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Skill Evolver -->
+        <div class="reveal glass-card p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500/20 to-emerald-600/20 flex items-center justify-center text-xl">🧬</div>
+            <div>
+              <h3 class="font-bold text-lg" style="font-family:'Space Grotesk',sans-serif;">Skill Evolver</h3>
+              <p class="text-xs text-gray-500">Adaptive skill growth</p>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Code Generation</span><span class="text-green-400">Level 47</span></div>
+              <div class="skill-bar"><div class="skill-fill bg-gradient-to-r from-green-400 to-emerald-500" data-width="94%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Content Strategy</span><span class="text-green-400">Level 38</span></div>
+              <div class="skill-bar"><div class="skill-fill bg-gradient-to-r from-green-400 to-emerald-500" data-width="76%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Data Analysis</span><span class="text-green-400">Level 42</span></div>
+              <div class="skill-bar"><div class="skill-fill bg-gradient-to-r from-green-400 to-emerald-500" data-width="84%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs mb-1"><span class="text-gray-400">Cloud Ops</span><span class="text-green-400">Level 35</span></div>
+              <div class="skill-bar"><div class="skill-fill bg-gradient-to-r from-green-400 to-emerald-500" data-width="70%"></div></div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-6">
+            <span class="evolve-pill border-green-500/30 text-green-400 bg-green-500/5">↑ Evolving</span>
+            <span class="evolve-pill border-cyan-500/30 text-cyan-400 bg-cyan-500/5">∞ Learning</span>
+          </div>
+        </div>
+
+        <!-- Memory System -->
+        <div class="reveal glass-card p-8" style="transition-delay:0.1s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/20 to-violet-600/20 flex items-center justify-center text-xl">🧠</div>
+            <div>
+              <h3 class="font-bold text-lg" style="font-family:'Space Grotesk',sans-serif;">Memory System</h3>
+              <p class="text-xs text-gray-500">Persistent context engine</p>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02]">
+              <span class="text-lg">💾</span>
+              <div>
+                <div class="text-sm font-medium">Short-Term Memory</div>
+                <div class="text-xs text-gray-500">Active session context</div>
+              </div>
+              <span class="ml-auto text-xs text-purple-400">Active</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02]">
+              <span class="text-lg">📦</span>
+              <div>
+                <div class="text-sm font-medium">Long-Term Memory</div>
+                <div class="text-xs text-gray-500">Cross-session persistence</div>
+              </div>
+              <span class="ml-auto text-xs text-purple-400">Active</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02]">
+              <span class="text-lg">🔗</span>
+              <div>
+                <div class="text-sm font-medium">RAG Pipeline</div>
+                <div class="text-xs text-gray-500">Retrieval augmented generation</div>
+              </div>
+              <span class="ml-auto text-xs text-purple-400">Active</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 rounded-lg bg-white/[0.02]">
+              <span class="text-lg">🌐</span>
+              <div>
+                <div class="text-sm font-medium">Browse & Evolve</div>
+                <div class="text-xs text-gray-500">Real-time web learning</div>
+              </div>
+              <span class="ml-auto text-xs text-green-400">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compatibility -->
+        <div class="reveal glass-card p-8" style="transition-delay:0.2s;">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center text-xl">🔌</div>
+            <div>
+              <h3 class="font-bold text-lg" style="font-family:'Space Grotesk',sans-serif;">Compatibility</h3>
+              <p class="text-xs text-gray-500">Universal integration</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">🔥</div>
+              <div class="text-xs text-gray-400">Firebase</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">☁️</div>
+              <div class="text-xs text-gray-400">GCP</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">🐍</div>
+              <div class="text-xs text-gray-400">Python</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">⚛️</div>
+              <div class="text-xs text-gray-400">Node.js</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">🤖</div>
+              <div class="text-xs text-gray-400">OpenAI</div>
+            </div>
+            <div class="p-3 rounded-lg bg-white/[0.02] text-center">
+              <div class="text-xl mb-1">📡</div>
+              <div class="text-xs text-gray-400">REST API</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-5">
+            <span class="evolve-pill border-cyan-500/30 text-cyan-400 bg-cyan-500/5">+ Extensible</span>
+            <span class="evolve-pill border-blue-500/30 text-blue-400 bg-blue-500/5">∞ Plugins</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="relative py-20 px-6" style="z-index:1;">
+    <div class="max-w-5xl mx-auto">
+      <div class="reveal glass-card p-8 md:p-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="stat-number" data-target="6">0</div>
+            <div class="text-sm text-gray-500 mt-1">AI Agents</div>
+          </div>
+          <div>
+            <div class="stat-number" data-target="50">0</div>
+            <div class="text-sm text-gray-500 mt-1">Skills</div>
+          </div>
+          <div>
+            <div class="stat-number" data-target="14">0</div>
+            <div class="text-sm text-gray-500 mt-1">Core Modules</div>
+          </div>
+          <div>
+            <div class="stat-number">∞</div>
+            <div class="text-sm text-gray-500 mt-1">Possibilities</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAINS -->
+  <section class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-5xl mx-auto text-center">
+      <p class="reveal text-xs tracking-[0.3em] uppercase text-cyan-400 mb-4" style="font-family:'JetBrains Mono',monospace;">Premium Domains</p>
+      <h2 class="reveal text-3xl md:text-4xl font-bold mb-10" style="font-family:'Space Grotesk',sans-serif;">
+        Claim Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Identity</span>
+      </h2>
+      <div class="reveal flex flex-wrap justify-center gap-3">
+        <div class="domain-badge">omniagent.ai</div>
+        <div class="domain-badge">omniagent.app</div>
+        <div class="domain-badge">omniagent.cloud</div>
+        <div class="domain-badge">omniagent.studio</div>
+        <div class="domain-badge">omniagent.one</div>
+        <div class="domain-badge">getomniagent.com</div>
+        <div class="domain-badge">omniagentx.com</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta" class="relative py-24 px-6" style="z-index:1;">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="reveal glass-card p-12 md:p-20 relative overflow-hidden">
+        <!-- Decorative gradient -->
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent"></div>
+
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-medium mb-8 tracking-wider" style="font-family:'JetBrains Mono',monospace;">
+          OMNI AGENT X
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black mb-6" style="font-family:'Space Grotesk',sans-serif;">
+          Ready to Deploy Your<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">Autonomous Workforce?</span>
+        </h2>
+        <p class="text-gray-400 max-w-xl mx-auto mb-10">
+          The Autonomous AI Workforce for Builders, Businesses, and Creators. Start building with OMNI Agent X today.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <button class="btn-primary text-lg px-12 py-5 rounded-xl" onclick="launchWorkspace()">
+            <span class="flex items-center gap-2">
+              Launch OMNI Agent X
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </span>
+          </button>
+          <button class="btn-neon text-lg px-12 py-5">
+            View Documentation
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="relative py-16 px-6 border-t border-white/5" style="z-index:1;">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-white text-sm" style="font-family:'Space Grotesk',sans-serif;">◉</div>
+            <span class="text-xl font-bold tracking-tight" style="font-family:'Space Grotesk',sans-serif;">OMNI<span class="text-cyan-400">AGENT</span></span>
+          </div>
+          <p class="text-sm text-gray-500">One Agent. Unlimited Execution.<br>Autonomous AI Operating System.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-4 text-gray-300" style="font-family:'Space Grotesk',sans-serif;">Platform</h4>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li><a href="#" class="hover:text-cyan-400 transition">Agent Skills</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Architecture</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Integrations</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Documentation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-4 text-gray-300" style="font-family:'Space Grotesk',sans-serif;">Agents</h4>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li><a href="#" class="hover:text-cyan-400 transition">Planner</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Coder</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Designer</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Marketer</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Analyst</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Automation</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm mb-4 text-gray-300" style="font-family:'Space Grotesk',sans-serif;">Connect</h4>
+          <ul class="space-y-2 text-sm text-gray-500">
+            <li><a href="#" class="hover:text-cyan-400 transition">Twitter / X</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">GitHub</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Discord</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5">
+        <p class="text-xs text-gray-600" style="font-family:'JetBrains Mono',monospace;">© 2025 OMNI Agent X. Autonomous Intelligence Platform.</p>
+        <p class="text-xs text-gray-700 mt-2 md:mt-0" style="font-family:'JetBrains Mono',monospace;">Built by agents, for builders.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Launch Modal -->
+  <div id="launchModal" class="fixed inset-0 z-[500] flex items-center justify-center p-6 hidden" style="background:rgba(0,0,0,0.8); backdrop-filter:blur(10px);">
+    <div class="glass-card p-8 max-w-lg w-full text-center relative">
+      <button class="absolute top-4 right-4 text-gray-500 hover:text-white text-xl" onclick="closeModal()">✕</button>
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-3xl mx-auto mb-6">◉</div>
+      <h3 class="text-2xl font-bold mb-2" style="font-family:'Space Grotesk',sans-serif;">OMNI Agent X</h3>
+      <p class="text-gray-500 text-sm mb-6">Initializing your autonomous workspace...</p>
+      <div class="w-full h-2 rounded-full bg-white/5 overflow-hidden mb-4">
+        <div id="progressBar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-100" style="width:0%"></div>
+      </div>
+      <p class="text-xs text-gray-600" style="font-family:'JetBrains Mono',monospace;" id="progressText">Connecting to OMNI network...</p>
+    </div>
+  </div>
+
+  <script>
+    // Particle system
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: 0, y: 0 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 80; i++) {
+      particles.push(new Particle());
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.05 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update();
+        p.draw(); });
+      drawConnections();
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Animate skill bars
+          entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+            const w = bar.getAttribute('data-width');
+            if (w) setTimeout(() => bar.style.width = w, 300);
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Rotating text
+    const texts = ['Builders', 'Businesses', 'Creators', 'Startups', 'Agencies', 'Developers', 'Entrepreneurs', 'Teams'];
+    let textIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    const rotatingEl = document.getElementById('rotating-text');
+
+    function typeRotating() {
+      const current = texts[textIndex];
+      if (!deleting) {
+        rotatingEl.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(typeRotating, 2000);
+          return;
+        }
+      } else {
+        rotatingEl.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          deleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+        }
+      }
+      setTimeout(typeRotating, deleting ? 50 : 100);
+    }
+    setTimeout(typeRotating, 1500);
+
+    // Terminal typing
+    const commands = [
+      'agent.deploy --target production',
+      'workflow.run --name growth-engine',
+      'memory.save --context all',
+      'skill.evolve --mode adaptive',
+      'browser.research --topic "market trends"'
+    ];
+    let cmdIdx = 0;
+    let cmdCharIdx = 0;
+    const typingCmd = document.getElementById('typingCommand');
+
+    function typeCommand() {
+      const cmd = commands[cmdIdx];
+      if (cmdCharIdx < cmd.length) {
+        typingCmd.textContent += cmd[cmdCharIdx];
+        cmdCharIdx++;
+        setTimeout(typeCommand, 60 + Math.random() * 40);
+      } else {
+        setTimeout(() => {
+          typingCmd.textContent = '';
+          cmdCharIdx = 0;
+          cmdIdx = (cmdIdx + 1) % commands.length;
+          typeCommand();
+        }, 3000);
+      }
+    }
+    setTimeout(typeCommand, 3000);
+
+    // Counter animation
+    function animateCounters() {
+      document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+        const target = parseInt(el.getAttribute('data-target'));
+        const inc = target / 60;
+        let current = 0;
+        const timer = setInterval(() => {
+          current += inc;
+          if (current >= target) {
+            el.textContent = target + '+';
+            clearInterval(timer);
+          } else {
+            el.textContent = Math.floor(current);
+          }
+        }, 30);
+      });
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => statsObserver.observe(el));
+
+    // Mobile menu
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // Smooth scroll
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Launch workspace modal
+    function launchWorkspace() {
+      const modal = document.getElementById('launchModal');
+      modal.classList.remove('hidden');
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('progressText');
+      const steps = [
+        { pct: 15, msg: 'Initializing brain engine...' },
+        { pct: 30, msg: 'Loading memory systems...' },
+        { pct: 45, msg: 'Deploying agents...' },
+        { pct: 60, msg: 'Connecting cloud infrastructure...' },
+        { pct: 75, msg: 'Calibrating skill evolver...' },
+        { pct: 90, msg: 'Running diagnostics...' },
+        { pct: 100, msg: '✓ OMNI Agent X is ready!' }
+      ];
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < steps.length) {
+          bar.style.width = steps[i].pct + '%';
+          text.textContent = steps[i].msg;
+          i++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => closeModal(), 1500);
+        }
+      }, 600);
+    }
+
+    function createAgent() {
+      launchWorkspace();
+    }
+
+    function closeModal() {
+      document.getElementById('launchModal').classList.add('hidden');
+      document.getElementById('progressBar').style.width = '0%';
+    }
+
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>
